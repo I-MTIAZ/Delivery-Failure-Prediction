@@ -49,7 +49,9 @@ export default function Home() {
     threshold: number;
   } | null>(null);
 
-  const API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/$/, "");
+  const API_URL = (
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+  ).replace(/\/$/, "");
 
   useEffect(() => {
     let cancelled = false;
@@ -76,7 +78,8 @@ export default function Home() {
   const completion = useMemo(() => {
     const values = Object.values(form);
     return Math.round(
-      (values.filter((value) => value.trim() !== "").length / values.length) * 100
+      (values.filter((value) => value.trim() !== "").length / values.length) *
+        100
     );
   }, [form]);
 
@@ -100,7 +103,9 @@ export default function Home() {
     setPrediction(null);
 
     if (completion < 100) {
-      setValidationError("Please complete all fields before running the prediction.");
+      setValidationError(
+        "Please complete all fields before running the prediction."
+      );
       return;
     }
 
@@ -131,7 +136,9 @@ export default function Home() {
 
     if (!EXPECTED_TIME_VALUES.includes(expectedTime)) {
       setValidationError(
-        `Expected delivery time must be one of: ${EXPECTED_TIME_VALUES.join(", ")} hours.`
+        `Expected delivery time must be one of: ${EXPECTED_TIME_VALUES.join(
+          ", "
+        )} hours.`
       );
       return;
     }
@@ -170,12 +177,11 @@ export default function Home() {
 
       if (!response.ok) {
         const errorBody = await response.json().catch(() => null);
-        const detail =
-          errorBody?.detail
-            ? typeof errorBody.detail === "string"
-              ? errorBody.detail
-              : JSON.stringify(errorBody.detail)
-            : `API returned HTTP ${response.status}`;
+        const detail = errorBody?.detail
+          ? typeof errorBody.detail === "string"
+            ? errorBody.detail
+            : JSON.stringify(errorBody.detail)
+          : `API returned HTTP ${response.status}`;
         throw new Error(detail);
       }
 
@@ -232,15 +238,29 @@ export default function Home() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <circle cx="7" cy="16.8" r="2" stroke="currentColor" strokeWidth="1.7" />
-                <circle cx="18" cy="16.8" r="2" stroke="currentColor" strokeWidth="1.7" />
+                <circle
+                  cx="7"
+                  cy="16.8"
+                  r="2"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
+                <circle
+                  cx="18"
+                  cy="16.8"
+                  r="2"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
               </svg>
             </div>
             <div>
               <p className="text-sm font-semibold tracking-wide text-white">
                 Delivery Risk AI
               </p>
-              <p className="text-xs text-slate-500">Supervised ML inference demo</p>
+              <p className="text-xs text-slate-500">
+                Supervised ML inference demo
+              </p>
             </div>
           </div>
 
@@ -258,13 +278,16 @@ export default function Home() {
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Predict delivery failure
-              <span className="block text-slate-400">before it becomes a problem.</span>
+              <span className="block text-slate-400">
+                before it becomes a problem.
+              </span>
             </h1>
 
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
               Enter the delivery conditions below to estimate the model&apos;s
-              probability of failure. The final application will connect this
-              interface to the trained XGBoost inference API.
+              probability of failure. The interface sends validated inputs to
+              the trained XGBoost inference API and displays the returned
+              prediction.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -290,7 +313,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="predict" className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
+        <section
+          id="predict"
+          className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]"
+        >
           <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-7">
             <div className="mb-7 flex items-start justify-between gap-5">
               <div>
@@ -301,24 +327,31 @@ export default function Home() {
                   Delivery information
                 </h2>
                 <p className="mt-1 text-sm text-slate-500">
-                  Use the values represented in the training data before running the prediction.
+                  Use the values represented in the training data before running
+                  the prediction.
                 </p>
               </div>
 
               <div className="text-right">
                 <p className="text-xs text-slate-500">Form complete</p>
-                <p className="mt-1 text-lg font-semibold text-white">{completion}%</p>
+                <p className="mt-1 text-lg font-semibold text-white">
+                  {completion}%
+                </p>
               </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-7">
               <div>
-                <p className="mb-3 text-sm font-medium text-slate-300">Delivery context</p>
+                <p className="mb-3 text-sm font-medium text-slate-300">
+                  Delivery context
+                </p>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Delivery partner">
                     <select
                       value={form.deliveryPartner}
-                      onChange={(e) => updateField("deliveryPartner", e.target.value)}
+                      onChange={(e) =>
+                        updateField("deliveryPartner", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select delivery partner</option>
@@ -337,7 +370,9 @@ export default function Home() {
                   <Field label="Package type">
                     <select
                       value={form.packageType}
-                      onChange={(e) => updateField("packageType", e.target.value)}
+                      onChange={(e) =>
+                        updateField("packageType", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select package type</option>
@@ -356,7 +391,9 @@ export default function Home() {
                   <Field label="Vehicle type">
                     <select
                       value={form.vehicleType}
-                      onChange={(e) => updateField("vehicleType", e.target.value)}
+                      onChange={(e) =>
+                        updateField("vehicleType", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select vehicle type</option>
@@ -372,7 +409,9 @@ export default function Home() {
                   <Field label="Delivery mode">
                     <select
                       value={form.deliveryMode}
-                      onChange={(e) => updateField("deliveryMode", e.target.value)}
+                      onChange={(e) =>
+                        updateField("deliveryMode", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select delivery mode</option>
@@ -401,7 +440,9 @@ export default function Home() {
                   <Field label="Weather condition">
                     <select
                       value={form.weatherCondition}
-                      onChange={(e) => updateField("weatherCondition", e.target.value)}
+                      onChange={(e) =>
+                        updateField("weatherCondition", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select weather</option>
@@ -417,8 +458,14 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="mb-3 text-sm font-medium text-slate-300">Delivery measurements</p>
-                <p className="mb-4 text-xs leading-5 text-slate-500">Values are restricted to the ranges represented in the training dataset. This prevents extreme inputs that the model never saw during training.</p>
+                <p className="mb-3 text-sm font-medium text-slate-300">
+                  Delivery measurements
+                </p>
+                <p className="mb-4 text-xs leading-5 text-slate-500">
+                  Values are restricted to the ranges represented in the
+                  training dataset. This prevents extreme inputs that the model
+                  never saw during training.
+                </p>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   <Field label="Distance" suffix="km">
                     <input
@@ -427,11 +474,15 @@ export default function Home() {
                       max={DATASET_LIMITS.distanceKm.max}
                       step="0.1"
                       value={form.distanceKm}
-                      onChange={(e) => updateField("distanceKm", e.target.value)}
+                      onChange={(e) =>
+                        updateField("distanceKm", e.target.value)
+                      }
                       placeholder="150"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">3.6–297.1 km</span>
+                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                      3.6–297.1 km
+                    </span>
                   </Field>
 
                   <Field label="Package weight" suffix="kg">
@@ -441,17 +492,23 @@ export default function Home() {
                       max={DATASET_LIMITS.packageWeightKg.max}
                       step="0.01"
                       value={form.packageWeightKg}
-                      onChange={(e) => updateField("packageWeightKg", e.target.value)}
+                      onChange={(e) =>
+                        updateField("packageWeightKg", e.target.value)
+                      }
                       placeholder="12.5"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">0.67–49.52 kg</span>
+                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                      0.67–49.52 kg
+                    </span>
                   </Field>
 
                   <Field label="Expected delivery time" suffix="hours">
                     <select
                       value={form.expectedTimeHours}
-                      onChange={(e) => updateField("expectedTimeHours", e.target.value)}
+                      onChange={(e) =>
+                        updateField("expectedTimeHours", e.target.value)
+                      }
                       className={selectClass}
                     >
                       <option value="">Select expected time</option>
@@ -461,7 +518,9 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                    <span className="mt-1.5 block text-[11px] text-slate-600">Dataset values only</span>
+                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                      Dataset values only
+                    </span>
                   </Field>
 
                   <Field label="Delivery cost">
@@ -471,11 +530,15 @@ export default function Home() {
                       max={DATASET_LIMITS.deliveryCost.max}
                       step="0.0001"
                       value={form.deliveryCost}
-                      onChange={(e) => updateField("deliveryCost", e.target.value)}
+                      onChange={(e) =>
+                        updateField("deliveryCost", e.target.value)
+                      }
                       placeholder="Enter cost"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">95.6674–1632.7206</span>
+                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                      $95–$1632
+                    </span>
                   </Field>
                 </div>
               </div>
@@ -525,7 +588,9 @@ export default function Home() {
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.035] p-5">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-400">Failure probability</span>
+                <span className="text-sm text-slate-400">
+                  Failure probability
+                </span>
                 <span
                   className={`rounded-full px-2.5 py-1 text-xs ${
                     prediction
@@ -548,8 +613,8 @@ export default function Home() {
                     prediction?.label === "Failed"
                       ? "text-red-300"
                       : prediction?.label === "Completed"
-                        ? "text-emerald-300"
-                        : "text-slate-500"
+                      ? "text-emerald-300"
+                      : "text-slate-500"
                   }`}
                 >
                   {prediction
@@ -563,7 +628,9 @@ export default function Home() {
               <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/10">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
-                    prediction?.label === "Failed" ? "bg-red-400" : "bg-blue-400"
+                    prediction?.label === "Failed"
+                      ? "bg-red-400"
+                      : "bg-blue-400"
                   }`}
                   style={{ width: `${prediction?.probability ?? 0}%` }}
                 />
@@ -583,11 +650,17 @@ export default function Home() {
               <InfoRow label="Model" value="XGBoost" />
               <InfoRow label="Decision threshold" value="31%" />
               <InfoRow label="Prediction type" value="Binary" />
-              <InfoRow label="API status" value={apiConnected ? "Connected" : "Not connected"} muted={!apiConnected} />
+              <InfoRow
+                label="API status"
+                value={apiConnected ? "Connected" : "Not connected"}
+                muted={!apiConnected}
+              />
             </div>
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.025] p-4">
-              <p className="text-xs font-semibold text-slate-300">How it works</p>
+              <p className="text-xs font-semibold text-slate-300">
+                How it works
+              </p>
               <div className="mt-3 space-y-2 text-xs leading-5 text-slate-500">
                 <p>1. User provides delivery information.</p>
                 <p>2. FastAPI applies the saved preprocessing pipeline.</p>
@@ -615,8 +688,8 @@ export default function Home() {
 
         <footer className="border-t border-white/10 py-6 text-xs leading-5 text-slate-600">
           Demo interface for an ML portfolio project. The delivery-failure
-          target is synthetic, so predictions should not be treated as
-          validated operational forecasts.
+          target is synthetic, so predictions should not be treated as validated
+          operational forecasts.
         </footer>
       </div>
     </main>
@@ -670,7 +743,9 @@ function InfoRow({
   return (
     <div className="flex items-center justify-between border-b border-white/5 pb-3 text-sm last:border-0 last:pb-0">
       <span className="text-slate-500">{label}</span>
-      <span className={muted ? "text-slate-600" : "text-slate-300"}>{value}</span>
+      <span className={muted ? "text-slate-600" : "text-slate-300"}>
+        {value}
+      </span>
     </div>
   );
 }
