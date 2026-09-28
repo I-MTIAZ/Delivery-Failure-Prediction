@@ -258,7 +258,7 @@ export default function Home() {
               <p className="text-sm font-semibold tracking-wide text-white">
                 Delivery Risk AI
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-white/75">
                 Supervised ML inference demo
               </p>
             </div>
@@ -278,12 +278,12 @@ export default function Home() {
 
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Predict delivery failure
-              <span className="block text-slate-400">
+              <span className="block text-white/85">
                 before it becomes a problem.
               </span>
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-white/85 sm:text-lg">
               Enter the delivery conditions below to estimate the model&apos;s
               probability of failure. The interface sends validated inputs to
               the trained XGBoost inference API and displays the returned
@@ -326,14 +326,14 @@ export default function Home() {
                 <h2 className="mt-2 text-2xl font-semibold text-white">
                   Delivery information
                 </h2>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-white/75">
                   Use the values represented in the training data before running
                   the prediction.
                 </p>
               </div>
 
               <div className="text-right">
-                <p className="text-xs text-slate-500">Form complete</p>
+                <p className="text-xs text-white/75">Form complete</p>
                 <p className="mt-1 text-lg font-semibold text-white">
                   {completion}%
                 </p>
@@ -461,7 +461,7 @@ export default function Home() {
                 <p className="mb-3 text-sm font-medium text-slate-300">
                   Delivery measurements
                 </p>
-                <p className="mb-4 text-xs leading-5 text-slate-500">
+                <p className="mb-4 text-xs leading-5 text-white/75">
                   Values are restricted to the ranges represented in the
                   training dataset. This prevents extreme inputs that the model
                   never saw during training.
@@ -480,8 +480,8 @@ export default function Home() {
                       placeholder="150"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">
-                      3.6–297.1 km
+                    <span className="mt-1.5 block text-[11px] text-white/65">
+                      3–297 km
                     </span>
                   </Field>
 
@@ -498,7 +498,7 @@ export default function Home() {
                       placeholder="12.5"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                    <span className="mt-1.5 block text-[11px] text-white/65">
                       0.67–49.52 kg
                     </span>
                   </Field>
@@ -518,7 +518,7 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                    <span className="mt-1.5 block text-[11px] text-white/65">
                       Dataset values only
                     </span>
                   </Field>
@@ -536,7 +536,7 @@ export default function Home() {
                       placeholder="Enter cost"
                       className={inputClass}
                     />
-                    <span className="mt-1.5 block text-[11px] text-slate-600">
+                    <span className="mt-1.5 block text-[11px] text-white/65">
                       $95–$1632
                     </span>
                   </Field>
@@ -582,13 +582,13 @@ export default function Home() {
           </div>
 
           <aside className="rounded-3xl border border-white/10 bg-slate-950/50 p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75">
               Prediction output
             </p>
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.035] p-5">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-400">
+                <span className="text-sm text-white/85">
                   Failure probability
                 </span>
                 <span
@@ -597,7 +597,7 @@ export default function Home() {
                       ? prediction.label === "Failed"
                         ? "bg-red-400/10 text-red-300"
                         : "bg-emerald-400/10 text-emerald-300"
-                      : "bg-white/5 text-slate-400"
+                      : "bg-white/5 text-white/85"
                   }`}
                 >
                   {prediction ? "Live result" : "Waiting"}
@@ -614,7 +614,7 @@ export default function Home() {
                       ? "text-red-300"
                       : prediction?.label === "Completed"
                       ? "text-emerald-300"
-                      : "text-slate-500"
+                      : "text-white/75"
                   }`}
                 >
                   {prediction
@@ -637,7 +637,7 @@ export default function Home() {
               </div>
 
               {prediction && (
-                <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
+                <div className="mt-4 flex items-center justify-between text-xs text-white/75">
                   <span>Decision threshold</span>
                   <span className="font-medium text-slate-300">
                     {prediction.threshold}%
@@ -661,7 +661,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-slate-300">
                 How it works
               </p>
-              <div className="mt-3 space-y-2 text-xs leading-5 text-slate-500">
+              <div className="mt-3 space-y-2 text-xs leading-5 text-white/75">
                 <p>1. User provides delivery information.</p>
                 <p>2. FastAPI applies the saved preprocessing pipeline.</p>
                 <p>3. XGBoost returns a failure probability.</p>
@@ -674,19 +674,21 @@ export default function Home() {
         <section id="about" className="grid gap-5 py-10 md:grid-cols-3">
           <AboutCard
             title="Validated before testing"
-            text="The final threshold was selected using validation data so the held-out test set could remain untouched for final evaluation."
+            text="The operating threshold was selected using validation data, keeping the held-out test set untouched for final evaluation."
           />
+
           <AboutCard
-            title="Business-aware analysis"
-            text="Threshold analysis also examined how different false-positive and false-negative costs can change operational decisions."
+            title="Business-aware decisions"
+            text="False-positive and false-negative costs were evaluated alongside F1 to understand how threshold choices affect operational decisions."
           />
+
           <AboutCard
-            title="Deployment ready"
-            text="The frontend now sends validated inputs to the FastAPI inference service, which loads the saved preprocessing pipeline and XGBoost model."
+            title="Production-style deployment"
+            text="The trained XGBoost model and preprocessing pipeline are served through FastAPI and consumed by the Next.js frontend."
           />
         </section>
 
-        <footer className="border-t border-white/10 py-6 text-xs leading-5 text-slate-600">
+        <footer className="border-t border-white/10 py-6 text-xs leading-5 text-white/65">
           Demo interface for an ML portfolio project. The delivery-failure
           target is synthetic, so predictions should not be treated as validated
           operational forecasts.
@@ -697,7 +699,7 @@ export default function Home() {
 }
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10";
+  "w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/65 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10";
 
 const selectClass =
   "w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-slate-300 outline-none transition focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10";
@@ -713,9 +715,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 flex items-center justify-between text-xs font-medium text-slate-400">
+      <span className="mb-2 flex items-center justify-between text-xs font-medium text-white/85">
         <span>{label}</span>
-        {suffix && <span className="text-slate-600">{suffix}</span>}
+        {suffix && <span className="text-white/65">{suffix}</span>}
       </span>
       {children}
     </label>
@@ -726,7 +728,7 @@ function StatCard({ value, label }: { value: string; label: string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
       <p className="text-xl font-semibold text-white sm:text-2xl">{value}</p>
-      <p className="mt-1 text-xs text-slate-500">{label}</p>
+      <p className="mt-1 text-xs text-white/75">{label}</p>
     </div>
   );
 }
@@ -742,8 +744,8 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-center justify-between border-b border-white/5 pb-3 text-sm last:border-0 last:pb-0">
-      <span className="text-slate-500">{label}</span>
-      <span className={muted ? "text-slate-600" : "text-slate-300"}>
+      <span className="text-white/75">{label}</span>
+      <span className={muted ? "text-white/65" : "text-slate-300"}>
         {value}
       </span>
     </div>
@@ -754,7 +756,7 @@ function AboutCard({ title, text }: { title: string; text: string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
       <p className="text-sm font-semibold text-white">{title}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{text}</p>
+      <p className="mt-2 text-sm leading-6 text-white/75">{text}</p>
     </div>
   );
 }
